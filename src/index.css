@@ -1,0 +1,782 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+body {
+  width: 100vw;
+  /* overflow: hidden; */
+}
+.signup-container,
+.login-container {
+  display: grid;
+  margin: 40px auto;
+  place-content: center;
+  width: 70%;
+  grid-template-columns: 30% 70%;
+  border-top-right-radius: 50px;
+  /* box-shadow: 1px 1px 5px #0056b3; */
+  border: 1px solid #1123b3;
+  border-radius: 30px;
+}
+.signup-container {
+  background: linear-gradient(#1123b3, #1123b3, #0a2d52);
+}
+.signup-text {
+  background: linear-gradient(#1123b3, #1123b3, #0a2d52);
+  /* background: #1123b3; */
+  padding: 0 30px;
+  flex: 1;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+  overflow: hidden;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+.signup-text .logo {
+  margin-left: -70px;
+}
+.signup-text .logo img {
+  width: 100%;
+  height: 200px;
+}
+.signup-text p {
+  font-size: 25px;
+  color: white;
+  margin: 0;
+}
+.signupform-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 90px;
+  background: #f5f7fa;
+
+  border-radius: 30px;
+}
+.signupform-container h2 {
+  margin: 50px 0;
+  font-weight: 400;
+}
+.signupform-container form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+.signupform-container form .name {
+  display: flex;
+  /* gap: 80px; */
+  gap: 50px;
+}
+.signupform-container form .input {
+  position: relative;
+  margin: 0 0 20px;
+  width: 100%;
+}
+.signupform-container input,
+.login-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background: transparent;
+}
+.signupform-container form .name .input input {
+  width: 100%;
+  padding: 10px;
+}
+.signupform-container form .input label {
+  position: absolute;
+  left: 0;
+  font-size: 16px;
+  padding: 5px 10px;
+  transition: 0.2s ease;
+  transform: translateY(-15px) scale(0.8);
+  background: #f5f7fa;
+}
+.signupform-container form .input span,
+.login-container form .input span {
+  position: absolute;
+  right: 0;
+  padding: 8px 10px;
+}
+.signupform-container form .input span img,
+.login-container form .input img {
+  width: 20px;
+  height: 20px;
+}
+.signupform-container form button,
+.login-container form button {
+  background: #0056b3;
+  color: white;
+  border: none;
+  outline: none;
+  padding: 10px 0;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.signupform-container form p {
+  font-size: 14px;
+}
+.signupform-container form p a,
+.login-container form p a {
+  color: red;
+  text-decoration: none;
+}
+.linethrough {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 40px 0 30px;
+  gap: 10px;
+}
+.linethrough hr {
+  width: 50%;
+}
+.signup-methods {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+.signup-methods .signupbtn {
+  background: transparent;
+  color: black;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid black;
+  padding: 5px 15px;
+  margin: 0 0 30px;
+  cursor: pointer;
+}
+.signup-methods .signupbtn span img {
+  width: 25px;
+  height: 25px;
+}
+/* Login page */
+.login-container {
+  grid-template-columns: 50% 50%;
+
+  border-radius: 40px;
+}
+.login-container .signup-text {
+  padding: 0 50px;
+  /* border-bottom-right-radius: 0;*/
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.login-container .signup-text .logo img {
+  width: 300px;
+}
+.loginform-container {
+  display: flex;
+  width: 100%;
+  margin: 50px auto;
+  flex-direction: column;
+  padding: 0 50px;
+}
+/* .loginform-container p {
+  margin-bottom: 5px; 
+} */
+.loginform-container form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 30px 0 0;
+  background: #f5f7fa;
+}
+.login-container h2 {
+  font-weight: 500;
+}
+.loginform-container form .input {
+  position: relative;
+  margin: 0 0 20px;
+  width: 100%;
+}
+.loginform-container form .input input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background: transparent;
+}
+.login-container form .input label {
+  position: absolute;
+  left: 0;
+  font-size: 16px;
+  padding: 5px 10px;
+  transition: 0.2s ease;
+  transform: translateY(-15px) scale(0.8);
+  background: #f5f7fa;
+}
+.login-container form .forget-password {
+  display: flex;
+  justify-content: end;
+  color: gray;
+  text-decoration: none;
+  font-size: 12px;
+  margin-top: -10px;
+}
+.login-container form button {
+  margin: 10px 0;
+}
+.login-container form p {
+  text-align: center;
+  font-size: 14px;
+}
+.loginform-container form .linethrough {
+  margin: 5px 0;
+}
+.login-container form .signup-methods {
+  flex-direction: column;
+  gap: 0;
+}
+.login-container form .signup-methods button {
+  width: 100%;
+  margin: 5px 0;
+  cursor: pointer;
+}
+.dashboard-container,
+.lesson-container,
+.gradepage-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  gap: 30px;
+}
+.dashboard-container .signup-text {
+  display: none;
+}
+.sidebar {
+  background: #1123b3;
+  min-width: 200px;
+}
+.sidebar .sidebarlogo img {
+  width: 100%;
+  height: 150px;
+}
+.sidebar .links {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+.sidebar .links li {
+  display: flex;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+.sidebar .links img {
+  width: 20px;
+  height: 20px;
+}
+.sidebar .links a {
+  text-decoration: none;
+  font-size: 14px;
+  color: white;
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.active {
+  animation: activeAnim 1s;
+  animation-fill-mode: forwards;
+}
+@keyframes activeAnim {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    /* background: #3793f5; */
+    color: white;
+    background: #3793f5;
+    padding: 10px 5px;
+    border-radius: 5px;
+  }
+}
+/* Dashboard design */
+.dashboard-content {
+  margin: 10px 0 0;
+}
+.dashboard-content h2 {
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+.dashboard-content .main-content {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  gap: 0 40px;
+}
+.dashboard-container .main-content .focus {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 30px;
+}
+.dashboard-container .main-content .focus section:nth-child(1) {
+  background: #0052b4;
+  /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='450' height='200' preserveAspectRatio='none' viewBox='0 0 450 200'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1045%26quot%3b)' fill='none'%3e%3crect width='450' height='200' x='0' y='0' fill='rgba(0%2c 82%2c 180%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c152.419C30.223%2c151.788%2c62.361%2c152.926%2c87.288%2c135.823C111.962%2c118.893%2c121.274%2c88.278%2c133.372%2c60.909C145.325%2c33.869%2c163.82%2c6.222%2c157.326%2c-22.62C150.903%2c-51.145%2c120.563%2c-65.85%2c100.122%2c-86.756C81.093%2c-106.218%2c65.979%2c-129.356%2c41.442%2c-141.138C14.161%2c-154.238%2c-16.227%2c-161.879%2c-46.088%2c-156.962C-77.985%2c-151.709%2c-108.693%2c-136.953%2c-130.253%2c-112.865C-151.978%2c-88.593%2c-168.15%2c-56.218%2c-165.306%2c-23.767C-162.595%2c7.163%2c-128.779%2c24.678%2c-115.728%2c52.851C-102.785%2c80.79%2c-113.004%2c119.437%2c-89.663%2c139.519C-66.3%2c159.62%2c-30.813%2c153.063%2c0%2c152.419' fill='%2300418e'%3e%3c/path%3e%3cpath d='M450 331.568C480.844 334.724 514.343 357.464 540.639 341.03700000000003 566.877 324.646 565.4300000000001 285.865 571.668 255.564 576.698 231.133 574.6949999999999 207.173 573.326 182.268 571.813 154.749 578.4970000000001 124.833 563.221 101.893 547.455 78.216 519.721 61.26400000000001 491.353 59.16499999999999 464.213 57.15700000000001 444.774 86.067 418.039 91.149 386.657 97.114 350.176 72.428 324.149 90.949 298.83299999999997 108.964 292.327 147.046 296.15700000000004 177.881 299.72900000000004 206.638 330.546 222.726 343.72 248.536 356.053 272.7 349.168 306.928 370.547 323.631 391.954 340.356 422.975 328.802 450 331.568' fill='%230063da'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1045'%3e%3crect width='450' height='200' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e"); */
+}
+.dashboard-container .main-content .focus section:nth-child(2) {
+  background: #f9871e;
+
+  /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='450' height='200' preserveAspectRatio='none' viewBox='0 0 450 200'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1046%26quot%3b)' fill='none'%3e%3crect width='450' height='200' x='0' y='0' fill='rgba(249%2c 135%2c 30%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c152.419C30.223%2c151.788%2c62.361%2c152.926%2c87.288%2c135.823C111.962%2c118.893%2c121.274%2c88.278%2c133.372%2c60.909C145.325%2c33.869%2c163.82%2c6.222%2c157.326%2c-22.62C150.903%2c-51.145%2c120.563%2c-65.85%2c100.122%2c-86.756C81.093%2c-106.218%2c65.979%2c-129.356%2c41.442%2c-141.138C14.161%2c-154.238%2c-16.227%2c-161.879%2c-46.088%2c-156.962C-77.985%2c-151.709%2c-108.693%2c-136.953%2c-130.253%2c-112.865C-151.978%2c-88.593%2c-168.15%2c-56.218%2c-165.306%2c-23.767C-162.595%2c7.163%2c-128.779%2c24.678%2c-115.728%2c52.851C-102.785%2c80.79%2c-113.004%2c119.437%2c-89.663%2c139.519C-66.3%2c159.62%2c-30.813%2c153.063%2c0%2c152.419' fill='%23d76a06'%3e%3c/path%3e%3cpath d='M450 331.568C480.844 334.724 514.343 357.464 540.639 341.03700000000003 566.877 324.646 565.4300000000001 285.865 571.668 255.564 576.698 231.133 574.6949999999999 207.173 573.326 182.268 571.813 154.749 578.4970000000001 124.833 563.221 101.893 547.455 78.216 519.721 61.26400000000001 491.353 59.16499999999999 464.213 57.15700000000001 444.774 86.067 418.039 91.149 386.657 97.114 350.176 72.428 324.149 90.949 298.83299999999997 108.964 292.327 147.046 296.15700000000004 177.881 299.72900000000004 206.638 330.546 222.726 343.72 248.536 356.053 272.7 349.168 306.928 370.547 323.631 391.954 340.356 422.975 328.802 450 331.568' fill='%23fba557'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1046'%3e%3crect width='450' height='200' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e"); */
+}
+.dashboard-container .main-content .focus section:nth-child(3) {
+  background: #61a023;
+  /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='450' height='200' preserveAspectRatio='none' viewBox='0 0 450 200'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1047%26quot%3b)' fill='none'%3e%3crect width='450' height='200' x='0' y='0' fill='rgba(97%2c 160%2c 35%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c152.419C30.223%2c151.788%2c62.361%2c152.926%2c87.288%2c135.823C111.962%2c118.893%2c121.274%2c88.278%2c133.372%2c60.909C145.325%2c33.869%2c163.82%2c6.222%2c157.326%2c-22.62C150.903%2c-51.145%2c120.563%2c-65.85%2c100.122%2c-86.756C81.093%2c-106.218%2c65.979%2c-129.356%2c41.442%2c-141.138C14.161%2c-154.238%2c-16.227%2c-161.879%2c-46.088%2c-156.962C-77.985%2c-151.709%2c-108.693%2c-136.953%2c-130.253%2c-112.865C-151.978%2c-88.593%2c-168.15%2c-56.218%2c-165.306%2c-23.767C-162.595%2c7.163%2c-128.779%2c24.678%2c-115.728%2c52.851C-102.785%2c80.79%2c-113.004%2c119.437%2c-89.663%2c139.519C-66.3%2c159.62%2c-30.813%2c153.063%2c0%2c152.419' fill='%234d7e1c'%3e%3c/path%3e%3cpath d='M450 331.568C480.844 334.724 514.343 357.464 540.639 341.03700000000003 566.877 324.646 565.4300000000001 285.865 571.668 255.564 576.698 231.133 574.6949999999999 207.173 573.326 182.268 571.813 154.749 578.4970000000001 124.833 563.221 101.893 547.455 78.216 519.721 61.26400000000001 491.353 59.16499999999999 464.213 57.15700000000001 444.774 86.067 418.039 91.149 386.657 97.114 350.176 72.428 324.149 90.949 298.83299999999997 108.964 292.327 147.046 296.15700000000004 177.881 299.72900000000004 206.638 330.546 222.726 343.72 248.536 356.053 272.7 349.168 306.928 370.547 323.631 391.954 340.356 422.975 328.802 450 331.568' fill='%2375c22a'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1047'%3e%3crect width='450' height='200' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e"); */
+}
+.dashboard-container .main-content .focus section:nth-child(4) {
+  background: #efb811;
+  /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='450' height='200' preserveAspectRatio='none' viewBox='0 0 450 200'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1048%26quot%3b)' fill='none'%3e%3crect width='450' height='200' x='0' y='0' fill='rgba(239%2c 184%2c 17%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c152.419C30.223%2c151.788%2c62.361%2c152.926%2c87.288%2c135.823C111.962%2c118.893%2c121.274%2c88.278%2c133.372%2c60.909C145.325%2c33.869%2c163.82%2c6.222%2c157.326%2c-22.62C150.903%2c-51.145%2c120.563%2c-65.85%2c100.122%2c-86.756C81.093%2c-106.218%2c65.979%2c-129.356%2c41.442%2c-141.138C14.161%2c-154.238%2c-16.227%2c-161.879%2c-46.088%2c-156.962C-77.985%2c-151.709%2c-108.693%2c-136.953%2c-130.253%2c-112.865C-151.978%2c-88.593%2c-168.15%2c-56.218%2c-165.306%2c-23.767C-162.595%2c7.163%2c-128.779%2c24.678%2c-115.728%2c52.851C-102.785%2c80.79%2c-113.004%2c119.437%2c-89.663%2c139.519C-66.3%2c159.62%2c-30.813%2c153.063%2c0%2c152.419' fill='%23be920d'%3e%3c/path%3e%3cpath d='M450 331.568C480.844 334.724 514.343 357.464 540.639 341.03700000000003 566.877 324.646 565.4300000000001 285.865 571.668 255.564 576.698 231.133 574.6949999999999 207.173 573.326 182.268 571.813 154.749 578.4970000000001 124.833 563.221 101.893 547.455 78.216 519.721 61.26400000000001 491.353 59.16499999999999 464.213 57.15700000000001 444.774 86.067 418.039 91.149 386.657 97.114 350.176 72.428 324.149 90.949 298.83299999999997 108.964 292.327 147.046 296.15700000000004 177.881 299.72900000000004 206.638 330.546 222.726 343.72 248.536 356.053 272.7 349.168 306.928 370.547 323.631 391.954 340.356 422.975 328.802 450 331.568' fill='%23f2c743'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1048'%3e%3crect width='450' height='200' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e"); */
+}
+.dashboard-container .main-content .focus section {
+  background: blue;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 0 60px 20px 40px;
+  transition: 0.5s ease;
+}
+.dashboard-container .main-content .focus section:hover {
+  transform: scale(1.1);
+}
+.dashboard-container .main-content .focus section img {
+  width: 30px;
+  height: 30px;
+  margin: 15px 0 0;
+}
+.dashboard-container .main-content .focus section h4 {
+  font-weight: 500;
+  margin: 5px 0;
+}
+.dashboard-container .main-content .focus section p {
+  font-size: 12px;
+}
+.dashboard-container .main-content .focus section .progress {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.dashboard-container .main-content .focus section .progress img {
+  width: 20px;
+  height: 20px;
+  margin: 5px 0 0;
+}
+.recent-activities {
+  display: flex;
+  flex-direction: column;
+}
+.recent-activities section {
+  margin: 10px 0;
+}
+.recent-activities h4 {
+  margin: 0 0 7px;
+}
+.recent-activities section h4 {
+  position: relative;
+}
+.recent-activities section h4::before {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  top: 50%;
+  left: -10px;
+  background: #0056b3;
+}
+.recent-activities section p {
+  font-size: 14px;
+}
+.recent-activities section small {
+  font-size: 12px;
+  color: gray;
+}
+.dashboard-container .main-content .planning {
+  margin-top: 20px;
+}
+.planning-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.planning-head h3 {
+  font-weight: 500;
+}
+.planning-head h3 sub {
+  color: #0056b3;
+  font-size: 14px;
+}
+.planning-head .date {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.planning .date img {
+  width: 30px;
+  height: 30px;
+}
+.planning .date h2 {
+  color: #0056b3;
+}
+.planning .planning-body {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.planning .planning-body section {
+  display: flex;
+  gap: 0 10px;
+  background: rgb(224, 223, 223);
+  border-radius: 10px;
+  padding: 10px 40px;
+  position: relative;
+}
+
+.planning .planning-body section span {
+  border-radius: 10px;
+  padding: 5px 10px;
+}
+.planning .planning-body section:nth-child(1) span {
+  background: #d0e5f9;
+}
+.planning .planning-body section:nth-child(2) span {
+  background: #f9e4d1;
+}
+.planning .planning-body section:nth-child(3) span {
+  background: #e1edd2;
+}
+.planning .planning-body section:nth-child(4) span {
+  background: #f9efd3;
+}
+.planning .planning-body section:nth-child(5) span {
+  background: #f9efd3;
+}
+.planning .planning-body section:nth-child(6) span {
+  background: #e1edd2;
+}
+.planning .planning-body span img {
+  width: 30px;
+  height: 30px;
+}
+.planning .planning-body h4 {
+  font-weight: 600;
+}
+.planning .planning-body img {
+  width: 30px;
+  height: 30px;
+}
+.planning .planning-body small {
+  color: gray;
+}
+.menu {
+  position: absolute;
+  right: 0;
+  top: 20%;
+  padding: 5px;
+  cursor: pointer;
+}
+.stat {
+  /* margin-top: 100px; */
+  display: flex;
+  align-items: last baseline;
+  width: 100%;
+  overflow: hidden;
+}
+.stat img {
+  width: 80%;
+  height: 150px;
+}
+
+.lesson-content .signup-text,
+.grade-content .signup-text {
+  display: none;
+}
+.lesson-container .lesson-content .lessonhead {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+.lesson-container .lesson-content .lessonhead img {
+  width: 50px;
+  height: 50px;
+}
+.lesson-container .lesson-content .interaction,
+.gradepage-container .grade-content .interaction {
+  /* display: flex;
+  grid-area: 10px; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.lesson-container .lesson-content .lesson-generator-form,
+.gradeform-container .gradeform-form {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  padding: 30px;
+  border: 1px solid blue;
+  border-radius: 20px;
+}
+.lesson-container .lesson-content .lesson-generator-form h3 {
+  font-weight: 500;
+}
+.lesson-container .lesson-content .lesson-generator-form p {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.lesson-generator-form form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+.lesson-generator-form form input,
+.lesson-generator-form form select {
+  margin: 10px 0;
+  padding: 10px 5px;
+  background: transparent;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+.lesson-generator-form form select option:hover {
+  color: white;
+}
+.lesson-generator-form form button {
+  padding: 10px 0;
+  outline: none;
+  background: #0056b3;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  margin: 20px 0;
+}
+.lesson-result p {
+  font-size: 14px;
+  text-align: justify;
+  padding: 0 10px;
+}
+.gradeheader {
+  margin: 20px 0;
+}
+.gradeform-form p {
+  font-size: 14px;
+  margin: 15px 0;
+}
+.gradeform-container .gradeform-form {
+  padding: 60px 30px;
+}
+.gradeform-container .gradeform-form p {
+  margin-bottom: 0;
+}
+
+.gradeform-container .gradeform-form form input {
+  width: 100%;
+  height: 50px;
+  margin: 0 0 20px;
+  padding: 0 10px;
+}
+.gradeform-container .gradeform-form form button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  background-color: #0056b3;
+  cursor: pointer;
+  color: white;
+}
+.gradeform-form form p {
+  font-size: 14px;
+}
+.grade-result {
+  padding: 0 10px;
+}
+.grade-result p {
+  font-size: 14px;
+  text-align: justify;
+}
+
+@media screen and (min-width: 200px) and (max-width: 700px) {
+  .signup-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    background: #f5f7fa;
+  }
+  .signup-text,
+  .login-container .signup-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0 20px;
+    border-radius: 30px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin: 0;
+    background: #1123b3;
+  }
+  .signup-text .logo {
+    margin: -60px 0 0;
+  }
+  .signup-text .writeup {
+    display: none;
+  }
+  .signupform-container h2 {
+    margin: 20px 0;
+  }
+  .signupform-container {
+    width: 100%;
+    padding: 0 20px;
+    border-radius: 0;
+  }
+  .signupform-container form {
+    width: 100%;
+  }
+  .signupform-container form .name {
+    display: block;
+  }
+  .signupform-container form .name .input input {
+    width: 100%;
+  }
+  .signupform-container form p {
+    text-align: center;
+  }
+  .linethrough {
+    margin: 20px 0;
+  }
+  .signup-methods {
+    flex-direction: column;
+    gap: 0px;
+  }
+  .signup-methods button {
+    width: 100%;
+    padding: 10px 0;
+  }
+  .login-container {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    margin: 0;
+    box-shadow: none;
+  }
+  .loginform-container {
+    margin: 20px auto;
+    padding: 0 25px;
+  }
+  .dashboard-container .signup-text,
+  .lesson-content .signup-text,
+  .grade-content .signup-text {
+    display: flex;
+  }
+  .sidebar {
+    display: none;
+  }
+  .dashboard-container {
+    display: block;
+    width: 100vw;
+  }
+  .dashboard-content {
+    display: block;
+  }
+  .dashboard-content h2 {
+    font-weight: bold;
+    margin: 30px 20px;
+  }
+  .dashboard-container .main-content {
+    display: block;
+  }
+  .dashboard-container .main-content .focus {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  .dashboard-container .main-content .focus section {
+    width: 90%;
+    padding: 40px;
+  }
+  .recent-activities {
+    display: none;
+  }
+  .planning {
+    display: block;
+    margin-bottom: 30px;
+  }
+  .planning .planning-head {
+    flex-direction: column;
+  }
+  .planning .planning-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  .planning .planning-body section {
+    padding: 30px;
+    width: 90%;
+  }
+  .menu {
+    top: 30px;
+    right: 10px;
+  }
+  .stat {
+    display: none;
+  }
+  .lesson-container .lesson-content .interaction,
+  .gradepage-container .grade-content .interaction {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .lesson-generator-form-container,
+  .gradeform-form {
+    width: 90%;
+    margin: 20px auto;
+  }
+  .gradeform-container .grade-content h3 {
+    text-align: center;
+  }
+  .lesson-result {
+    text-align: justify;
+    padding: 0 20px;
+  }
+  .lesson-container .lesson-content .lessonhead {
+    margin: 20px 30px;
+  }
+}
+
+@media screen and (min-width: 767px) and (max-width: 1023px) {
+  .signup-container,
+  .login-container {
+    width: 95%;
+    margin: 200px auto;
+  }
+  .signup-text p {
+    font-size: 27px;
+  }
+  .lesson-container .lesson-content .interaction {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .lesson-generator-form-container {
+    width: 90%;
+    margin: 20px auto;
+  }
+  .lesson-result {
+    text-align: justify;
+    padding: 0 20px;
+  }
+  .lesson-container .lesson-content .lessonhead {
+    margin: 20px 30px;
+  }
+}
