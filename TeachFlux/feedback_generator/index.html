@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Feedback Generator</title>
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/babel-standalone@6.26.0/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .glass {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500 min-h-screen flex items-center justify-center p-4">
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState } = React;
+
+    const FeedbackGenerator = () => {
+      const [context, setContext] = useState('');
+      const [performance, setPerformance] = useState('');
+      const [tone, setTone] = useState('Neutral');
+      const [feedback, setFeedback] = useState('');
+      const [error, setError] = useState('');
+
+      const tones = ['Positive', 'Neutral', 'Constructive'];
+      const quickSuggestions = [
+        'Excellent participation in class discussions',
+        'Struggles with homework completion',
+        'Shows improvement in test scores',
+        'Needs to work on time management',
+        'Demonstrates strong leadership skills',
+        'Requires additional support with math concepts'
+      ];
+
+      const generateFeedback = () => {
+        setError('');
+        if (!performance.trim()) {
+          setError('Please describe the student\'s performance or behavior.');
+          setFeedback('');
+          return;
+        }
+
+        let baseFeedback = `As of 08:54 AM WAT on Thursday, June 12, 2025, based on recent observations, `;
+        if (context) baseFeedback += `for ${context}, `;
+        baseFeedback += `${performance}. `;
+
+        if (tone === 'Positive') {
+          if (performance.includes('participation') || performance.includes('discussions')) {
+            baseFeedback += 'Your active engagement in class discussions has greatly enhanced group learning—continue this excellent effort!';
+          } else if (performance.includes('improvement') || performance.includes('scores')) {
+            baseFeedback += 'The progress in your test scores reflects your hard work—keep pushing forward!';
+          } else if (performance.includes('leadership')) {
+            baseFeedback += 'Your strong leadership skills have positively influenced your peers—maintain this leadership role!';
+          } else {
+            baseFeedback += `Your dedication in ${context || 'this class'} is impressive—keep up the great work!`;
+          }
+        } else if (tone === 'Constructive') {
+          if (performance.includes('struggles') || performance.includes('homework')) {
+            baseFeedback += 'I recommend seeking help with homework completion to improve your overall performance—support is available after school.';
+          } else if (performance.includes('time management')) {
+            baseFeedback += 'Working on time management skills will help you meet deadlines more effectively—consider using a planner.';
+          } else if (performance.includes('support') || performance.includes('math')) {
+            baseFeedback += 'Additional support with math concepts is recommended; please attend the next tutoring session.';
+          } else {
+            baseFeedback += `Focus on addressing this area in ${context || 'your studies'}—let’s schedule a meeting to discuss support options.`;
+          }
+        } else {
+          if (performance.includes('starting point') || performance.includes('effort')) {
+            baseFeedback += 'Your initial efforts are a solid foundation—consistent practice will lead to better results.';
+          } else {
+            baseFeedback += `This is a good starting point in ${context || 'this class'}; regular effort will enhance your progress.`;
+          }
+        }
+
+        setFeedback(baseFeedback);
+      };
+
+      const handleSuggestionClick = (suggestion) => {
+        setPerformance((prev) => prev ? `${prev}, ${suggestion}` : suggestion);
+      };
+
+      return (
+        <div className="max-w-4xl w-full">
+          <h1 className="text-4xl font-extrabold text-white text-center mb-8 animate-fade-in">Student Feedback Generator</h1>
+          <p className="text-blue-200 text-center mb-10">Craft personalized feedback based on student performance and behavior.</p>
+
+          {error && (
+            <div className="bg-blue-800/50 border border-blue-600 text-blue-200 px-4 py-3 rounded-lg mb-6 text-center animate-pulse">
+              {error}
+            </div>
+          )}
+
+          <div className="glass rounded-xl p-8 shadow-lg mb-8 bg-white">
+            <div className="mb-6">
+              <label className="block text-blue-900 text-sm font-semibold mb-2">Student/Class Context (Optional)</label>
+              <input
+                type="text"
+                value={context}
+                onChange={(e) => setContext(e.target.value)}
+                placeholder="e.g., 9th grade Biology, Advanced Math, ESL student..."
+                className="w-full p-4 border border-blue-300 rounded-xl bg-blue-50 text-blue-900 placeholder-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+            </div>
+
+            <div className="mb-6">
+              <label className="block text-blue-900 text-sm font-semibold mb-2">Student Performance/Behavior *</label>
+              <textarea
+                value={performance}
+                onChange={(e) => setPerformance(e.target.value)}
+                placeholder="Describe the student’s recent performance, behavior, or areas to address..."
+                className="w-full p-4 border border-blue-300 rounded-xl bg-blue-50 text-blue-900 placeholder-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400 h-36"
+              />
+            </div>
+
+            <div className="mb-6">
+              <p className="text-blue-600 text-sm mb-2">Quick Suggestions:</p>
+              <div className="grid grid-cols-2 gap-3">
+                {quickSuggestions.map((suggestion, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleSuggestionClick(suggestion)}
+                    className="bg-blue-100 text-blue-800 py-2 px-4 rounded-lg hover:bg-blue-200 transition-all duration-300 transform hover:scale-105 text-sm"
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <label className="block text-blue-900 text-sm font-semibold mb-2">Feedback Tone</label>
+              <select
+                value={tone}
+                onChange={(e) => setTone(e.target.value)}
+                className="w-full p-4 border border-blue-300 rounded-xl bg-blue-50 text-blue-900 placeholder-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              >
+                {tones.map((t) => (
+                  <option key={t} value={t} className="bg-white text-blue-900">{t}</option>
+                ))}
+              </select>
+            </div>
+
+            <button
+              onClick={generateFeedback}
+              className="w-full bg-blue-600 text-white py-4 rounded-xl hover:bg-blue-500 transition-all duration-300 font-bold shadow-md transform hover:scale-105"
+            >
+              Generate Feedback
+            </button>
+          </div>
+
+          {feedback && (
+            <div className="glass rounded-xl p-8 shadow-lg bg-white">
+              <h2 className="text-2xl font-semibold text-blue-900 mb-4">Generated Feedback</h2>
+              <p className="text-blue-700 whitespace-pre-wrap animate-fade-in">{feedback}</p>
+            </div>
+          )}
+        </div>
+      );
+    };
+
+    ReactDOM.render(<FeedbackGenerator />, document.getElementById('root'));
+  </script>
+</body>
+</html>

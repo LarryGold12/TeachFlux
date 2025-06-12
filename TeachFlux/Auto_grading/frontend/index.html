@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Grade System</title>
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/babel-standalone@6.26.0/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .glass {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500 min-h-screen flex items-center justify-center p-4">
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const AutoGradeSystem = () => {
+      const [name, setName] = useState('');
+      const [score, setScore] = useState('');
+      const [grades, setGrades] = useState([]);
+      const [average, setAverage] = useState('N/A');
+      const [error, setError] = useState('');
+
+      const handleAddGrade = async () => {
+        setError('');
+        if (!name.trim()) {
+          setError('Name cannot be empty');
+          return;
+        }
+        const scoreNum = parseFloat(score);
+        if (isNaN(scoreNum) || scoreNum < 0 || scoreNum > 100) {
+          setError('Score must be a number between 0 and 100');
+          return;
+        }
+
+        try {
+          const response = await fetch('http://localhost:5001/add_grade', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, score: scoreNum })
+          });
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data.error || 'Failed to add grade');
+          }
+          setGrades(data.grades);
+          setAverage(data.average);
+          setName('');
+          setScore('');
+        } catch (err) {
+          setError(err.message);
+        }
+      };
+
+      const handleSaveToCSV = async () => {
+        try {
+          const response = await fetch('http://localhost:5001/save_to_csv', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+          });
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data.error || data.warning || 'Failed to save');
+          }
+          alert(data.message);
+        } catch (err) {
+          setError(err.message);
+        }
+      };
+
+      const handleClearAll = async () => {
+        try {
+          const response = await fetch('http://localhost:5001/clear_all', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+          });
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data.error || 'Failed to clear');
+          }
+          setGrades([]);
+          setAverage('N/A');
+          setName('');
+          setScore('');
+          setError('');
+        } catch (err) {
+          setError(err.message);
+        }
+      };
+
+      return (
+        <div className="max-w-3xl mx-auto p-6 w-full">
+          <h1 className="text-3xl font-bold text-white text-center mb-8">Auto Grade System</h1>
+          
+          {error && (
+            <div className="bg-blue-800/50 border border-blue-600 text-blue-200 px-4 py-3 rounded mb-6 text-center">
+              {error}
+            </div>
+          )}
+
+          <div className="glass rounded-xl p-8 shadow-lg bg-white mb-8">
+            <div className="mb-6">
+              <label className="block text-blue-900 text-sm font-medium mb-3" htmlFor="name">
+                Student Name
+              </label>
+              <input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full p-4 border border-blue-300 rounded-lg bg-blue-50 text-blue-900 placeholder-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Enter student name"
+              />
+            </div>
+
+            <div className="mb-8">
+              <label className="block text-blue-900 text-sm font-medium mb-3" htmlFor="score">
+                Score (0-100)
+              </label>
+              <input
+                id="score"
+                type="number"
+                value={score}
+                onChange={(e) => setScore(e.target.value)}
+                className="w-full p-4 border border-blue-300 rounded-lg bg-blue-50 text-blue-900 placeholder-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Enter score"
+                min="0"
+                max="100"
+              />
+            </div>
+
+            <div className="flex flex-col sm:flex-row justify-between gap-4 mb-8">
+              <button
+                onClick={handleAddGrade}
+                className="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 hover:bg-blue-500 transition-colors"
+              >
+                Add Grade
+              </button>
+              <button
+                onClick={handleSaveToCSV}
+                className="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 hover:bg-blue-500 transition-colors"
+              >
+                Save to CSV
+              </button>
+              <button
+                onClick={handleClearAll}
+                className="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 hover:bg-blue-500 transition-colors"
+              >
+                Clear All
+              </button>
+            </div>
+
+            <div className="mb-8 py-4 px-6 bg-blue-50 rounded-lg">
+              <h2 className="text-xl font-semibold text-blue-900">Class Average: {average}</h2>
+            </div>
+
+            {grades.length > 0 && (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-blue-100">
+                      <th className="py-3 px-6 border text-blue-900">Name</th>
+                      <th className="py-3 px-6 border text-blue-900">Score</th>
+                      <th className="py-3 px-6 border text-blue-900">Grade</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {grades.map((g, index) => (
+                      <tr key={index} className="hover:bg-blue-50">
+                        <td className="py-3 px-6 border text-blue-900">{g.name}</td>
+                        <td className="py-3 px-6 border text-blue-900">{g.score}</td>
+                        <td className="py-3 px-6 border text-blue-900">{g.grade}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.render(<AutoGradeSystem />, document.getElementById('root'));
+  </script>
+</body>
+</html>

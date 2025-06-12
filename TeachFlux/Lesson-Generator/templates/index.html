@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson Note Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            min-height: 100vh;
+            padding-top: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .header-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            padding: 25px 0;
+        }
+        
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 15px 15px;
+        }
+        
+        .result-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            min-height: 300px;
+        }
+        
+        .btn-generate {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-generate:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+        }
+        
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .loader-spinner {
+            width: 3rem;
+            height: 3rem;
+        }
+        
+        .note-content {
+            line-height: 1.8;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .note-content section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border-bottom: 1px solid #e4edf5;
+        }
+        
+        .note-content h1, .note-content h2, .note-content h3 {
+            color: var(--primary);
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .note-content ul, .note-content ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .note-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .note-content table {
+            width: 100%;
+            margin-bottom: 1.5rem;
+            border-collapse: collapse;
+        }
+        
+        .note-content table, .note-content th, .note-content td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .subject-icon {
+            font-size: 24px;
+            margin-right: 10px;
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card mb-4">
+            <div class="header-card text-center">
+                <h1><i class="fas fa-book-open"></i> Lesson Note Generator</h1>
+                <p class="lead">Create comprehensive study notes based on official JAMB, WAEC, and NECO syllabi</p>
+            </div>
+            
+            <div class="form-container">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="examSelect" class="form-label fw-bold">Exam Body</label>
+                        <select class="form-select form-select-lg" id="examSelect">
+                            <option value="">Select Exam</option>
+                            <option value="JAMB">JAMB</option>
+                            <option value="WAEC">WAEC</option>
+                            <option value="NECO">NECO</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <label for="subjectSelect" class="form-label fw-bold">Subject</label>
+                        <select class="form-select form-select-lg" id="subjectSelect" disabled>
+                            <option value="">Select Subject</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="English">English</option>
+                            <option value="Physics">Physics</option>
+                            <option value="Chemistry">Chemistry</option>
+                            <option value="Biology">Biology</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <label for="topicSelect" class="form-label fw-bold">Topic</label>
+                        <select class="form-select form-select-lg" id="topicSelect" disabled>
+                            <option value="">Select Topic</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <button id="generateBtn" class="btn btn-generate btn-lg" disabled>
+                        <i class="fas fa-magic me-2"></i>Generate Lesson Note
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="loader" id="loader">
+            <div class="spinner-border loader-spinner text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3">Generating comprehensive lesson note...</p>
+        </div>
+        
+        <div class="result-container card" id="resultContainer" style="display: none;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 id="resultTitle">Lesson Note</h3>
+                <button class="btn btn-sm btn-outline-primary" id="downloadBtn">
+                    <i class="fas fa-download me-1"></i>Download as PDF
+                </button>
+            </div>
+            <div class="note-content" id="noteContent"></div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4><i class="fas fa-lightbulb me-2"></i>How to Use This Generator</h4>
+                <ol>
+                    <li>Select the exam body (JAMB, WAEC, or NECO)</li>
+                    <li>Choose one of the five core subjects</li>
+                    <li>Select a topic from the syllabus</li>
+                    <li>Click "Generate Lesson Note" to create comprehensive study material</li>
+                    <li>Download your notes as PDF for offline study</li>
+                </ol>
+                <p class="mt-3"><strong>Note:</strong> This application uses official syllabi from JAMB, WAEC, and NECO to ensure complete curriculum coverage.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>© 2025 Lesson Note Generator | Teach Flux</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Enable subject dropdown when exam is selected
+            $('#examSelect').change(function() {
+                if ($(this).val()) {
+                    $('#subjectSelect').prop('disabled', false);
+                    $('#topicSelect').prop('disabled', true).html('<option value="">Select Topic</option>');
+                    $('#generateBtn').prop('disabled', true);
+                } else {
+                    $('#subjectSelect').prop('disabled', true);
+                    $('#topicSelect').prop('disabled', true);
+                    $('#generateBtn').prop('disabled', true);
+                }
+            });
+            
+            // Fetch topics when subject is selected
+            $('#subjectSelect').change(function() {
+                const exam = $('#examSelect').val();
+                const subject = $(this).val();
+                
+                if (exam && subject) {
+                    $('#topicSelect').prop('disabled', true).html('<option value="">Loading topics...</option>');
+                    
+                    $.get('/api/topics', { exam, subject }, function(data) {
+                        if (data.topics && data.topics.length > 0) {
+                            let options = '<option value="">Select Topic</option>';
+                            data.topics.forEach(topic => {
+                                options += `<option value="${topic}">${topic}</option>`;
+                            });
+                            $('#topicSelect').html(options).prop('disabled', false);
+                        } else {
+                            $('#topicSelect').html('<option value="">No topics found</option>');
+                        }
+                    }).fail(function() {
+                        $('#topicSelect').html('<option value="">Error loading topics</option>');
+                    });
+                }
+            });
+            
+            // Enable generate button when topic is selected
+            $('#topicSelect').change(function() {
+                $('#generateBtn').prop('disabled', !$(this).val());
+            });
+            
+            // Generate lesson note
+            $('#generateBtn').click(function() {
+                const exam = $('#examSelect').val();
+                const subject = $('#subjectSelect').val();
+                const topic = $('#topicSelect').val();
+                
+                if (exam && subject && topic) {
+                    $('#loader').show();
+                    $('#resultContainer').hide();
+                    $('#noteContent').empty();
+                    
+                    $.ajax({
+                        url: '/api/generate_note',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ exam, subject, topic }),
+                        success: function(response) {
+                            $('#loader').hide();
+                            $('#resultTitle').html(`Lesson Note: ${topic} (${subject} - ${exam})`);
+                            
+                            // Sanitize and clean the response
+                            let noteContent = DOMPurify.sanitize(response.note || '<p class="error-message">No content received from server.</p>');
+                            
+                            // Remove duplicate sections
+                            let $tempDiv = $('<div>').html(noteContent);
+                            let seenHeadings = new Set();
+                            $tempDiv.find('h1, h2, h3').each(function() {
+                                let headingText = $(this).text().trim();
+                                if (seenHeadings.has(headingText)) {
+                                    $(this).parent().remove(); // Remove duplicate section
+                                } else {
+                                    seenHeadings.add(headingText);
+                                }
+                            });
+                            
+                            // Wrap content in sections for better styling
+                            $tempDiv.children().each(function() {
+                                if (!$(this).is('section')) {
+                                    $(this).wrap('<section></section>');
+                                }
+                            });
+                            
+                            $('#noteContent').html($tempDiv.html());
+                            $('#resultContainer').show();
+                        },
+                        error: function() {
+                            $('#loader').hide();
+                            $('#noteContent').html('<p class="error-message">Error generating lesson note. Please try again.</p>');
+                            $('#resultContainer').show();
+                        }
+                    });
+                }
+            });
+            
+            // Download as PDF (simulated functionality)
+            $('#downloadBtn').click(function() {
+                alert('PDF download functionality would be implemented in production. For now, you can print this page.');
+            });
+        });
+    </script>
+</body>
+</html>
